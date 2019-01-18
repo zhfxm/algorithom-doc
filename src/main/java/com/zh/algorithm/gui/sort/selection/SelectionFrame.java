@@ -31,11 +31,11 @@ public class SelectionFrame extends JFrame {
         //初始化画布
         SelectionCanvas canvas = new SelectionCanvas();
         //设置面板内容
-        setContentPane(canvas);
-        pack();
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        this.setContentPane(canvas);
+        this.pack();
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
 
     public int getCanvasWidth() {
@@ -75,10 +75,24 @@ public class SelectionFrame extends JFrame {
 
             //TODO 具体绘制  data数据
             double w = (double) canvasWidth/selectionData.getN();
-            AlgoVisHelper.setColor(g2d, AlgoVisHelper.LightBlue);
+            AlgoVisHelper.setColor(g2d, AlgoVisHelper.Grey );
             for (int i = 0; i < selectionData.getN(); i++) {
+                if (i < selectionData.orderIndex) {
+                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Red );
+                } else {
+                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Grey );
+                }
+
+                if (i == selectionData.currentCompareIndex) {
+                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.LightBlue);
+                }
+                if (i == selectionData.currentMinIndex) {
+                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Indigo);
+                }
+
+
                 AlgoVisHelper.fillRectangle(g2d, (double) i * w, canvasHeight - selectionData.get(i),
-                        (double) w - 0.1, selectionData.get(i));
+                        w - 0.1, selectionData.get(i));
             }
         }
 
